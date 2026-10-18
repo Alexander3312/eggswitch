@@ -40,6 +40,12 @@ class EggSwitchPendingReinstall extends Model
 
     protected $guarded = ['id'];
 
+    // Never serialized: whoever returns this model as JSON (an HTTP reply of this
+    // extension or of another addon) would otherwise expose the id of the user who
+    // made the request, the backup id and the resolved environment. Reading these
+    // attributes in PHP is not affected.
+    protected $hidden = ['requested_by', 'backup_id', 'environment'];
+
     protected $casts = [
         'environment' => 'array',
         'with_backup' => 'bool',

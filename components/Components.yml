@@ -1,0 +1,9 @@
+# https://blueprint.zip/docs/configs/componentsyml
+
+Navigation:
+  Routes:
+    - { Name: "Switch game", Path: "/eggswitch", Type: "server", Component: "sections/EggSwitchSection", AdminOnly: "false" }
+
+Server:
+  Terminal:
+    BeforeContent: "sections/EggSwitchBanner"

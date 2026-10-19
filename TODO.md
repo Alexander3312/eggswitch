@@ -41,10 +41,6 @@ The target egg is checked against the whitelist when the request is made. If an 
 
 A request on another user's server gets a 403. The panel's client API answers 404 in that case, so as not to confirm that a server exists. UUIDs are impossible to guess, but staying consistent with the panel would be cleaner.
 
-## The panel's mandatory 2FA isn't enforced
-
-When the panel requires two-factor authentication, its routes refuse an account that hasn't set it up. The extension's routes don't: the panel's middleware answers JSON requests in JSON but redirects the others, including the tab's `GET /eggs` and `/status`, which would break them. An equivalent that answers in JSON is needed.
-
 ## Restricting eggs by node
 
 Every whitelisted egg is offered on every server. An egg that only works on some nodes (ARM architecture, resources, image availability) should be limitable to those nodes.

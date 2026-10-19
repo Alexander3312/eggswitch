@@ -67,6 +67,7 @@ The eggs shipped with Pterodactyl don't do this: add this line to each egg befor
 - Only eggs in the matching list are accepted, even if the requested egg exists on the panel.
 - Only the variables the egg declares as editable and visible to the user are taken into account, and their values are validated before anything happens.
 - The switch is refused on a suspended server, a node in maintenance, or during an install, a restore or a transfer, as well as on a server whose first install failed or that is set to skip install scripts.
+- The panel's "require 2-factor authentication" setting is applied: when it is on, an account that must use 2FA and hasn't set it up is refused. With the setting off, nothing changes.
 - Only one active request per server at a time.
 - Other addons go through exactly the same checks, without exception.
 

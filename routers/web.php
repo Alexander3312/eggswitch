@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Pterodactyl\BlueprintFramework\Extensions\eggswitch\Http\Controllers\EggSwitchController;
 use Pterodactyl\BlueprintFramework\Extensions\eggswitch\Http\Middleware\EnsureEggSwitchAllowed;
+use Pterodactyl\BlueprintFramework\Extensions\eggswitch\Http\Middleware\EnsureTwoFactorWhenRequired;
 
 // The panel's "blueprint" middleware group (app/Http/Kernel.php) includes no
 // authentication check — without "auth" here, these endpoints would be
@@ -13,7 +14,8 @@ use Pterodactyl\BlueprintFramework\Extensions\eggswitch\Http\Middleware\EnsureEg
 // "auth.session" (like the panel's routes): a session invalidated by a
 // password change ("log out other devices") is also refused here, not only on
 // the panel pages.
-Route::middleware(['auth', 'auth.session', EnsureEggSwitchAllowed::class])->group(function () {
+// EnsureTwoFactorWhenRequired applies the panel's mandatory-2FA setting.
+Route::middleware(['auth', 'auth.session', EnsureTwoFactorWhenRequired::class, EnsureEggSwitchAllowed::class])->group(function () {
     // third parameter = explicit throttle prefix: without it, the Laravel rate
     // limiter key depends ONLY on the authenticated user, never on the route
     // (see ThrottleRequests::resolveRequestSignature()) — the two groups below

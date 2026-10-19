@@ -36,7 +36,7 @@ CI (`.github/workflows/check.yml`) only runs `php -l` on every PHP file.
 
 ## HTTP routes (`/extensions/eggswitch`)
 
-All go through `auth`, `auth.session` and `EnsureEggSwitchAllowed`. On top of that, every controller action checks that the user owns the targeted server, reads included.
+All go through `auth`, `auth.session`, `EnsureTwoFactorWhenRequired` (the panel's mandatory two-factor setting: an account that must use 2FA and hasn't set it up gets the panel's JSON 400) and `EnsureEggSwitchAllowed`. On top of that, every controller action checks that the user owns the targeted server, reads included.
 
 | Method and route | Throttle | Role |
 |---|---|---|

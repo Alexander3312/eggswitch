@@ -16,7 +16,7 @@ The extension stays generic: it knows no game, no mod loader (Forge, Fabric…),
 
 ### Two guard levels, never mixed up
 
-**Level 1, every route**: `auth`, `auth.session`, then `EnsureEggSwitchAllowed`, which rejects a user who isn't logged in or who owns no server. This level says **nothing** about the right to act on a specific server: it only rejects irrelevant requests early. The `blueprint` middleware group of extension routes includes no authentication, hence the explicit `auth`; `auth.session` makes sure a session invalidated by the panel (after a password change, for example) is invalidated here too.
+**Level 1, every route**: `auth`, `auth.session`, `EnsureTwoFactorWhenRequired`, then `EnsureEggSwitchAllowed`, which rejects a user who isn't logged in or who owns no server. This level says **nothing** about the right to act on a specific server: it only rejects irrelevant requests early. The `blueprint` middleware group of extension routes includes no authentication, hence the explicit `auth`; `auth.session` makes sure a session invalidated by the panel (after a password change, for example) is invalidated here too. `EnsureTwoFactorWhenRequired` applies the panel's mandatory two-factor setting: the panel's own middleware redirects non-JSON requests to /account instead of answering, which would hand the tab an HTML page for its `GET` calls, so the extension answers with the panel's JSON error instead.
 
 **Level 2, every action that touches a server, reads included**: `EggSwitchScopeService::assertOwnsServer()`, on the server reloaded from the database, never on an id from the payload. It's the only check that actually authorizes anything. It is never assumed that a middleware has already done it.
 
